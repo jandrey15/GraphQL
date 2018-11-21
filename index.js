@@ -1,5 +1,6 @@
 const express = require('express')
 const { ApolloServer } = require('apollo-server-express')
+const casual = require('casual')
 // const bodyParser = require('body-parser')
 
 const app = express()
@@ -26,16 +27,46 @@ const resolvers = {
   Curso: {
     profesor: () => {
       return {
-        nombre: 'John Serrano'
+        nombre: 'John Serrano',
+        nacionalidad: 'Colombia'
       }
+    },
+    comentarios: () => {
+      return [{
+        id:1,
+        nombre: 'luisj135',
+        cuerpo: 'testing GraphQl'
+      },
+      {
+        id:2,
+        nombre: 'Platzi',
+        cuerpo: 'testing Platzi GraphQl'
+      }]
     }
   }
 }
 
+const mocks = {
+  Curso: () => {
+    return {
+      id: casual.uuid,
+      titulo: casual.sentence,
+      descripcion: casual.sentences(2)
+    }
+  },
+  Profesor: () => {
+    return {
+      nombre: casual.name,
+      nacionalidad: casual.country
+    }
+  }
+};
+
 // inicializar apollo server
 const server = new ApolloServer({
   typeDefs,
-  resolvers
+  resolvers,
+  mocks
 })
 
 
