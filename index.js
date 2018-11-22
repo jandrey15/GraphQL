@@ -1,5 +1,6 @@
 const express = require('express')
 const { ApolloServer } = require('apollo-server-express')
+// Con casual podemos generar datos falsos
 const casual = require('casual')
 // const bodyParser = require('body-parser')
 
