@@ -1,28 +1,15 @@
 const express = require('express')
 const { ApolloServer } = require('apollo-server-express')
 // Con casual podemos generar datos falsos
-const casual = require('casual')
+// const casual = require('casual')
 // const bodyParser = require('body-parser')
 
 require('./db/setup.js')
-const Curso = require('./models/Curso')
-const Profesor = require('./models/Profesor')
-
-const app = express()
-
+const resolvers = require('./resolvers')
 // construye un schema, usando GraphQL
 const typeDefs = require('./schema')
 
-// provee resolvers para nuestro esquema
-const resolvers = {
-  Query: {
-    // cursos: () => []
-    cursos: () => Curso.query().eager('[profesor, comentarios]'),
-    profesores: () => Profesor.query().eager('cursos'),
-    curso: (rootValue, args) => Curso.query().eager('[profesor, comentarios]').findById(args.id),
-    profesor: (rootValue, args) => Profesor.query().eager('cursos').findById(args.id)
-  }
-}
+const app = express()
 
 /* const mocks = {
   Curso: () => {
@@ -47,7 +34,6 @@ const server = new ApolloServer({
   // mocks,
   // mockEntireSchema: false // Desactivamos los mocks
 })
-
 
 // aplicar middleware de apollo en express
 server.applyMiddleware({
