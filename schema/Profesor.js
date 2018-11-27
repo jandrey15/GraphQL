@@ -12,4 +12,10 @@ module.exports = `
     MASCULINO
     FEMENINO
   }
+
+  input NewProfesor {
+    nombre: String!
+    genero: Genero
+    nacionalidad: String!
+  }
 `

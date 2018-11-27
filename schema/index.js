@@ -14,6 +14,10 @@ const schema = gql`
     curso(id: Int): Curso
     profesor(id: Int): Profesor
   }
+
+  type Mutation {
+    profesorAdd(profesor: NewProfesor): Profesor
+  }
 `
 
 module.exports = schema
