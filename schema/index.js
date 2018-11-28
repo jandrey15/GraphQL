@@ -17,6 +17,7 @@ const schema = gql`
 
   type Mutation {
     profesorAdd(profesor: NewProfesor): Profesor
+    profesorEdit(profesorId: Int!, profesor: EditProfesor): Profesor
   }
 `
 

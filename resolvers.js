@@ -12,8 +12,14 @@ const resolvers = {
     profesor: (rootValue, args) => Profesor.query().eager('cursos').findById(args.id)
   }, // La convencion es que si no vamos a usar rootValue colocamos un _ guion piso bajo
   Mutation: {
-    profesorAdd: (_, args) => {
-      return Profesor.query().insert(args.profesor)
+    profesorAdd: async (_, args) => {
+      //console.log(args)
+      const profesorAdded = await Profesor.query().insert(args.profesor)
+      return profesorAdded
+    },
+    profesorEdit: async (_, args) => {
+      const profesorEdited = await Profesor.query().patchAndFetchById(args.profesorId, args.profesor)
+      return profesorEdited
     }
   }
 }
