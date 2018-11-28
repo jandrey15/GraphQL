@@ -20,7 +20,16 @@ const resolvers = {
     profesorEdit: async (_, args) => {
       const profesorEdited = await Profesor.query().patchAndFetchById(args.profesorId, args.profesor)
       return profesorEdited
-    }
+    },
+    profesorDelete: async (_, args) => {
+      const deletedProfessor = await Profesor.query().findById(args.profesorId)
+      const deletedRows = await Profesor.query().deleteById(args.profesorId)
+      if (deletedRows > 0) {
+        return deletedProfessor
+      } else {
+        throw new Error(`El profesor con id: ${args.profesorId} no se pudo eliminar :(`)
+      }
+    },
   }
 }
 
