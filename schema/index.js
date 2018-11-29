@@ -19,6 +19,9 @@ const schema = gql`
     profesorAdd(profesor: NewProfesor): Profesor
     profesorEdit(profesorId: Int!, profesor: EditProfesor): Profesor
     profesorDelete(profesorId: Int!): Profesor
+    cursoAdd(curso: NewCurso): Curso
+    cursoEdit(cursoId: Int!, curso: EditCurso): Curso
+    cursoDelete(cursoId: Int!): Curso
   }
 `
 

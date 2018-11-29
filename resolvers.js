@@ -22,12 +22,29 @@ const resolvers = {
       return profesorEdited
     },
     profesorDelete: async (_, args) => {
-      const deletedProfessor = await Profesor.query().findById(args.profesorId)
+      const deletedProfesor = await Profesor.query().findById(args.profesorId)
       const deletedRows = await Profesor.query().deleteById(args.profesorId)
       if (deletedRows > 0) {
-        return deletedProfessor
+        return deletedProfesor
       } else {
         throw new Error(`El profesor con id: ${args.profesorId} no se pudo eliminar :(`)
+      }
+    },
+    cursoAdd: async (_, args) => {
+      const cursoAdded = await Curso.query().insert(args.curso)
+      return cursoAdded
+    },
+    cursoEdit: async (_, args) => {
+      const cursoEdited = await Curso.query().patchAndFetchById(args.cursoId, args.curso)
+      return cursoEdited
+    },
+    cursoDelete: async (_, args) => {
+      const deletedCurso = await Curso.query().findById(args.cursoId)
+      const deletedRows = await Curso.query().deleteById(args.cursoId)
+      if (deletedRows > 0) {
+        return deletedCurso
+      } else {
+        throw new Error(`El curso con id: ${args.cursoId} no se pudo eliminar :(`)
       }
     },
   }
