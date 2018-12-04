@@ -15,8 +15,14 @@ module.exports = `
 
   input NewProfesor {
     nombre: String!
-    genero: Genero
     nacionalidad: String!
+    genero: Genero
+    cursos: [cursosInput]
+  }
+
+  input cursosInput {
+    id: ID!
+    titulo: String
   }
 
   input EditProfesor {

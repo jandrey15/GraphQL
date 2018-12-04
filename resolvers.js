@@ -9,11 +9,22 @@ const resolvers = {
     cursos: () => Curso.query().eager('[profesor, comentarios]'),
     profesores: () => Profesor.query().eager('cursos'),
     curso: (rootValue, args) => Curso.query().eager('[profesor, comentarios]').findById(args.id),
-    profesor: (rootValue, args) => Profesor.query().eager('cursos').findById(args.id)
-  }, // La convencion es que si no vamos a usar rootValue colocamos un _ guion piso bajo
+    profesor: (rootValue, args) => Profesor.query().eager('cursos').findById(args.id),
+    buscar: (_, args) => {
+      // Esto es demostrativo deberia hacer la consulata a la database
+      return [
+        Profesor.query().findById(3),
+        Curso.query().findById(1)
+      ]
+    }
+  }, 
+  ResultadoBusqueda: {
+    __resolveType: obj => obj.nombre ? 'Profesor' : 'Curso'
+  },
+  // La convencion es que si no vamos a usar rootValue colocamos un _ guion piso bajo
   Mutation: {
     profesorAdd: async (_, args) => {
-      //console.log(args)
+      console.log(args)
       const profesorAdded = await Profesor.query().insert(args.profesor)
       return profesorAdded
     },

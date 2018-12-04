@@ -4,15 +4,19 @@ const Profesor = require('./Profesor')
 
 // creamos los esquemas
 const schema = gql`
+
   ${Curso}
-  
+
   ${Profesor}
+  
+  union ResultadoBusqueda = Profesor | Curso
 
   type Query {
     cursos: [Curso]
     profesores: [Profesor]
     curso(id: Int): Curso
     profesor(id: Int): Profesor
+    buscar(query: String!): [ResultadoBusqueda] 
   }
 
   type Mutation {
