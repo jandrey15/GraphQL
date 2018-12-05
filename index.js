@@ -31,6 +31,14 @@ const app = express()
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  formatError: error => {
+    // console.log(error)
+    return {
+      code: '500',
+      name: error.name,
+      mensaje: error.message
+    }
+  },
   // mocks,
   // mockEntireSchema: false // Desactivamos los mocks
 })
